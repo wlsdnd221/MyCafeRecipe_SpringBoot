@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: cdn">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="common :: nav"></div>
+
+<table align="center" width="1000" height="600">
+    <tr>
+        <td width="400" height="600" style="text-align: center">
+            이미지 미리보기<br>
+            <img id="preview" width="400" height="600">
+        </td>
+        <td>
+            <div class="w3-container">
+                <div class="w3-card-4">
+                    <header class="w3-container w3-brown">
+                        <h1>상품등록</h1>
+                    </header>
+
+                    <div class="w3-container">
+                        <form id="form" class="w3-container" action="/menu/enroll" method="post" enctype="multipart/form-data">
+                            <table align="center" width="100%">
+                                <tr>
+                                    <td>
+                                        <p style="width: 80%">
+                                            <label class="w3-text-brown"><b>분류</b></label>
+                                            <select class="w3-select w3-border w3-sand" id="sort" name="sort">
+                                                <option value="" disabled selected>선택</option>
+                                                <option value="beverage" class="w3-text-brown">음료</option>
+                                                <option value="food" class="w3-text-brown">푸드</option>
+                                                <option value="topping" class="w3-text-brown">토핑</option>
+                                            </select>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p p style="width: 90%">
+                                            <label class="w3-text-brown" style="float: left"><b>이미지 선택</b></label>&emsp;
+                                            <input type="file" class="w3-input w3-border w3-sand" id="file" onchange="readURL(this);" name="file">
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p p style="width: 90%">
+                                            <label class="w3-text-brown"><b>상품명</b></label>
+                                            <input class="w3-input w3-border w3-sand" id="productName" name="product" type="text">
+                                        </p>
+                                        <p p style="width: 90%">
+                                            <label class="w3-text-brown"><b>설명</b></label>
+                                            <textarea class="w3-input w3-border w3-sand" name="content" rows="5" cols="10"></textarea>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p align="right">
+                                <input type="submit" class="w3-btn w3-brown" value="등록하기">
+                            </p>
+                        </form>
+                    </div>
+
+                    <footer class="w3-container w3-brown">
+                        <h5>MyCafeRecipe</h5>
+                    </footer>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+//파일 업로드
+function fn_submit(){
+
+	if($("#cafe option:selected").val() == "") {
+		alert("파일업로드 전 반드시 카페를 먼저 선택하세요.");
+		return false;
+	}
+	else {
+		var cafe = $("#cafe").val();
+	       var form = new FormData();
+	       form.append( "picture", $("#picture")[0].files[0] );
+
+	        jQuery.ajax({
+	            url : "cafe_menu_upload?cafe="+cafe
+	          , type : "POST"
+	          , processData : false
+	          , contentType : false
+	          , data : form
+	          , success:function(response) {
+	              alert("파일업로드 성공!");
+	              console.log(response);
+	          }
+	          ,error: function ()
+	          {
+	              alert("다시 시도해주세요!");
+	          }
+	      });
+	}
+}
+
+function readURL(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview').src = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  }
+	  else {
+	    document.getElementById('preview').src = "";
+	  }
+}
+
+</script>
+
+</body>
+</html>
