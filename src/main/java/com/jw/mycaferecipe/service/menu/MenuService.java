@@ -4,10 +4,12 @@ import com.jw.mycaferecipe.entity.MenuDTO;
 import com.jw.mycaferecipe.repository.menu.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -40,9 +42,15 @@ public class MenuService {
         menuRepository.save(menuDTO);
     }
 
-    //메뉴리스트 비즈니스로직
+    //메뉴리스트 로직
     public List<MenuDTO> menuList() {
         List<MenuDTO> menuList = menuRepository.findAll();
         return menuList;
+    }
+
+    //메뉴상세 로직
+    public Optional<MenuDTO> menuDetail(@RequestParam("num") Long num) {
+        Optional<MenuDTO> menuDetail = menuRepository.findById(num);
+        return menuDetail;
     }
 }

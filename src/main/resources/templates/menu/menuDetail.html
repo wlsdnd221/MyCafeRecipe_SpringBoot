@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: cdn">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<div th:replace="common :: nav"></div>
+
+<table align="center" width="1000" height="600">
+    <tr>
+        <td width="400" height="600" style="text-align: center">
+            <img th:src="${mdto.filepath}" id="preview" width="400" height="600">
+        </td>
+        <td>
+            <div class="w3-container">
+                <div class="w3-card-4">
+                    <header class="w3-container w3-brown">
+                        <h1>상품상세</h1>
+                    </header>
+
+                    <div class="w3-container">
+                        <table align="center" width="100%">
+                            <tr>
+                                <td>
+                                    <p style="width: 80%">
+                                        <label class="w3-text-brown"><b>분류</b></label>
+                                        <div th:switch="${mdto.sort}">
+                                            <div th:case="'beverage'">
+                                                <input class="w3-input w3-border w3-sand" type="text" value="음료" readonly>
+                                            </div>
+                                            <div th:case="'food'">
+                                                <input class="w3-input w3-border w3-sand" type="text" value="푸드" readonly>
+                                            </div>
+                                            <div th:case="'topping'">
+                                                <input class="w3-input w3-border w3-sand" type="text" value="토핑" readonly>
+                                            </div>
+                                        </div>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p p style="width: 90%">
+                                        <label class="w3-text-brown"><b>상품명</b></label>
+                                        <div th:text="${mdto.product}" class="w3-input w3-border w3-sand" type="text" readonly/>
+                                    </p>
+                                    <p p style="width: 90%">
+                                        <label class="w3-text-brown"><b>설명</b></label>
+                                        <textarea th:text="${mdto.content}" class="w3-input w3-border w3-sand" rows="5" cols="10" readonly></textarea>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${logon==true && mbdto!=ull }">
+                                            <a href="cafe_menu_modify_input?num=${mndto.num}">
+                                                <input type="button" class="w3-btn  w3-red" value="수정">
+                                            </a>
+                                            <input type="button" class="w3-btn w3-red" value="삭제" onclick="del('${mndto.num}', '${mndto.cafe}')">
+                                        </c:when>
+                                    </c:choose>
+                                </td>
+                                <td>
+                                    <p align="right">
+                                        <a href="cafe_menu_list?cafename=${cafename}&pagenum=1">
+                                            <input type="button" class="w3-btn w3-brown" value="목록으로">
+                                        </a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <footer class="w3-container w3-brown">
+                        <h5>MyCafeRecipe</h5>
+                    </footer>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
 
 </body>
 </html>

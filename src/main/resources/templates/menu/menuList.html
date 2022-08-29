@@ -27,7 +27,7 @@
                 <div th:if="${mlist.sort == 'beverage'}">
                     <div class="col-md-3">
                         <div class="thumbnail">
-                            <a href="">
+                            <a th:href="@{/menu/detail(num=${mlist.num})}">
                                 <img th:src="${mlist.filepath}" style="width:300px; height: 300px">
                                 <div class="caption" style="text-align: center">
                                     <p th:text="${mlist.product}" style="text-align: center"></p>
