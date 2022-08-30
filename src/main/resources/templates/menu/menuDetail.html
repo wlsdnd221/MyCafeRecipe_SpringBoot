@@ -53,14 +53,13 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <c:choose>
-                                        <c:when test="${logon==true && mbdto!=ull }">
-                                            <a href="cafe_menu_modify_input?num=${mndto.num}">
-                                                <input type="button" class="w3-btn  w3-red" value="수정">
-                                            </a>
-                                            <input type="button" class="w3-btn w3-red" value="삭제" onclick="del('${mndto.num}', '${mndto.cafe}')">
-                                        </c:when>
-                                    </c:choose>
+                                    <a th:href="@{/menu/enroll(num=${mdto.num})}">
+                                        <input type="button" class="w3-btn  w3-red" value="수정">
+                                    </a>
+                                    <button type="button"
+                                            class="w3-btn w3-red"
+                                            th:num="${mdto.num}"
+                                            th:onclick="del(this.getAttribute('num'))">삭제</button>
                                 </td>
                                 <td>
                                     <p align="right">
@@ -80,6 +79,17 @@
         </td>
     </tr>
 </table>
+
+<script type="text/javascript">
+function del(num){
+	if(confirm("정말로 삭제하시겠습니까?")){
+		location.href='/menu/delete?num='+num;
+		alert("삭제되었습니다.");
+	}
+	else
+	{}
+}
+</script>
 
 </body>
 </html>

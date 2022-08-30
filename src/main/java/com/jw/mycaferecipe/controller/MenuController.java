@@ -23,16 +23,25 @@ public class MenuController {
         this.menuService = menuService;
     }
 
-    //메뉴등록 폼으로 이동
+    //메뉴 폼으로 이동(등록, 수정)
     @GetMapping("/menu/enroll")
-    public String menuEnrollForm() {
+    public String menuEnrollForm(@RequestParam(required = false, name = "num") Long num, Model model) {
+        if(num == null) {
+            model.addAttribute("mdto", new MenuDTO());
+        }
+        else {
+            MenuDTO mdto = menuService.menuDetail(num).orElse(null);
+            model.addAttribute("mdto", mdto);
+        }
+
         return "/menu/menuEnrollForm";
     }
 
-    //등록된 메뉴 DB저장
+    //등록, 수정
     @PostMapping("/menu/enroll")
     public String menuEnroll(MenuDTO menuDTO, MultipartFile file) throws Exception{
         menuService.enroll(menuDTO, file);
+
         return "redirect:/";
     }
 
@@ -41,13 +50,24 @@ public class MenuController {
     public String menuList(Model model) {
         List<MenuDTO> menuList = menuService.menuList();
         model.addAttribute("menuList", menuList);
+
         return "/menu/menuList";
     }
 
+    //메뉴 상세
     @GetMapping("/menu/detail")
     public String menuDetail(@RequestParam("num") Long num, Model model) {
-        Optional<MenuDTO> mdto = menuService.menuDetail(num);
-        model.addAttribute("mdto", mdto.orElse(null));
+        MenuDTO mdto = menuService.menuDetail(num).orElse(null);
+        model.addAttribute("mdto", mdto);
+
         return "/menu/menuDetail";
+    }
+
+    //메뉴 삭제
+    @GetMapping("/menu/delete")
+    public String menuDelete(@RequestParam("num") Long num) {
+        menuService.menuDelete(num);
+
+        return "redirect:/menu/list";
     }
 }
