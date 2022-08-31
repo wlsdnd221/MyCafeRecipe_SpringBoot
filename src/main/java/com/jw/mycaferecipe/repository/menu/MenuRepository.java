@@ -26,7 +26,6 @@ public interface MenuRepository extends JpaRepository<MenuDTO, Long> {
     Optional<MenuDTO> findById(Long num);
 
     //메뉴삭제
-
     @Override
     void deleteById(Long aLong);
 }

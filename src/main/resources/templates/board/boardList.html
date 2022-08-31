@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: cdn">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="common :: nav"/>
+
+<div class="w3-container" style="width: 80%;margin-left: auto; margin-right: auto;">
+    <p style="text-align: right">
+        <a href="recipe_input?cafename=${cafename}">
+            <button class="w3-button w3-brown">글 쓰기</button>
+        </a>
+    </p>
+    <table class="w3-table-all w3-hoverable">
+        <thead>
+        <tr class="w3-brown">
+            <th width="200">글 번호</th>
+            <th>음료명</th>
+            <th width="200">작성자</th>
+            <th width="200">작성일</th>
+            <th width="100">조회수</th>
+        </tr>
+        </thead>
+        <div th:each="blist : ${}">
+            <tr>
+                <td th:text="${blist.num}">0</td>
+                <td>
+                    <a th:href="@{}" th:text="${blist.title}">연습제목</a>
+                </td>
+                <td th:text="${blist.writer}">홍길동</td>
+                <td th:text="${blist.writeday}">22.08.31</td>
+                <td th:text="${blist.readcnt}">0</td>
+            </tr>
+        </div>
+    </table>
+    <br>
+</div>
+
+</body>
+</html>

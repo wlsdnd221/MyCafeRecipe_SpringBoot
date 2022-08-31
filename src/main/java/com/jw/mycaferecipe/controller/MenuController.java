@@ -42,7 +42,7 @@ public class MenuController {
     public String menuEnroll(MenuDTO menuDTO, MultipartFile file) throws Exception{
         menuService.enroll(menuDTO, file);
 
-        return "redirect:/";
+        return "redirect:/menu/list";
     }
 
     //메뉴 리스트
