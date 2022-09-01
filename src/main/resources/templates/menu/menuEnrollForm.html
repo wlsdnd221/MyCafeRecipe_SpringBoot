@@ -22,7 +22,7 @@
 
                     <div class="w3-container">
                         <form id="form" class="w3-container" th:action="@{/menu/enroll}" th:object="${mdto}" method="post" enctype="multipart/form-data">
-                            <input type="hidden" th:field="*{num}">
+                            <input th:field="*{num}" type="hidden">
                             <table align="center" width="100%">
                                 <tr>
                                     <td>

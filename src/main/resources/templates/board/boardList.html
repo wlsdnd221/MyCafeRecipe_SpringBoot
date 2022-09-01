@@ -8,8 +8,10 @@
 <div th:replace="common :: nav"/>
 
 <div class="w3-container" style="width: 80%;margin-left: auto; margin-right: auto;">
+    <h2><b>Recipe 게시판</b></h2>
+    <br>
     <p style="text-align: right">
-        <a href="recipe_input?cafename=${cafename}">
+        <a th:href="@{/board/enroll}">
             <button class="w3-button w3-brown">글 쓰기</button>
         </a>
     </p>
@@ -23,11 +25,11 @@
             <th width="100">조회수</th>
         </tr>
         </thead>
-        <div th:each="blist : ${}">
+        <div th:each="blist : ${boardList}">
             <tr>
                 <td th:text="${blist.num}">0</td>
                 <td>
-                    <a th:href="@{}" th:text="${blist.title}">연습제목</a>
+                    <a th:href="@{/}" th:text="${blist.title}">연습제목</a>
                 </td>
                 <td th:text="${blist.writer}">홍길동</td>
                 <td th:text="${blist.writeday}">22.08.31</td>

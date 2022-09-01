@@ -13,11 +13,11 @@ public class BoardDTO {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long num;
     private String writer;
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String writeday;
+    private int readcnt;
     private String title;
-    private List<MenuDTO> recipe;
-    private String filename;
-    private String filepath;
+    private String recipe;
     private String content;
 
 
