@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: cdn">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="common :: nav"/>
+
+<div class="w3-card-4" style="width: 70%; margin-left: auto; margin-right: auto">
+    <div class="w3-container w3-brown">
+        <h2 th:text="${bdto.title}"></h2>
+    </div>
+    <div class="w3-border-bottom w3-border-brown" style="text-align: right">
+        <label th:text="${bdto.writer}" class="w3-text-brown"></label>&emsp;
+        <label th:text="${bdto.writeday}" class="w3-text-brown"><b></b></label>&emsp;
+        <label th:text="${bdto.readcnt}" class="w3-text-brown"><b></b></label>&emsp;
+    </div>
+    <div style="width: 97%; margin-left: auto; margin-right: auto">
+        <label class="w3-text-brown"><b>상세설명</b></label>
+        <div th:text="${bdto.content}" class="w3-input w3-border w3-sand"></div>
+        <br>
+        <table style="width: 100%">
+            <tr>
+                <td>
+                    <p>
+                        <a th:href="@{/board/enroll(num=${bdto.num})}">
+                            <input type="button" class="w3-btn  w3-red" value="수정">
+                        </a>
+                        <button type="button"
+                                class="w3-btn w3-red"
+                                th:num="${bdto.num}"
+                                onclick="del(this.getAttribute('num'))">삭제</button>
+                    </p>
+
+                </td>
+                <td>
+                    <p align="right">
+                        <a th:href="@{/board/List}">
+                            <input type="button" class="w3-btn w3-brown" value="목록으로">
+                        </a>
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+function del(num){
+	if(confirm("정말로 삭제하시겠습니까?")){
+		location.href='/board/delete?num='+num;
+		alert("삭제되었습니다.");
+	}
+	else
+	{}
+}
+</script>
+
+</body>
+</html>

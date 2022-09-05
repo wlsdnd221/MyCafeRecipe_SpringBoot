@@ -29,7 +29,7 @@
             <tr>
                 <td th:text="${blist.num}">0</td>
                 <td>
-                    <a th:href="@{/}" th:text="${blist.title}">연습제목</a>
+                    <a th:href="@{/board/detail(num=${blist.num})}" th:text="${blist.title}">연습제목</a>
                 </td>
                 <td th:text="${blist.writer}">홍길동</td>
                 <td th:text="${blist.writeday}">22.08.31</td>
@@ -38,7 +38,27 @@
         </div>
     </table>
     <br>
+    <div style="text-align: right">
+        <th:block th:each="page : ${#numbers.sequence(pageList[1], pageList[2])}">
+            <a th:if="${page != pageList[0]}"
+               th:href="@{/board/list(page=${page-1})}"
+               th:text="${page}"
+               search="${param.search}"></a>
+            <strong th:unless="${page != pageList[0]}"
+                    th:text="${page}" style="color : red"></strong>
+        </th:block>
+    </div>
 </div>
+
+<form th:action="@{/board/list}" method="get" align="center">
+    <select name="category">
+        <option value="title">음료명(제목)
+        <option value="writer">작성자
+    </select>
+    <input type="text" name="search">
+    <input type="submit" value="검색">
+</form>
+
 
 </body>
 </html>
