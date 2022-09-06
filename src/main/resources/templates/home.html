@@ -14,29 +14,31 @@
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
         </ol>
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <img th:if="${beverage == null}"
+                <a th:if="${beverage != null}"
+                   th:href="@{/menu/detail(num=${beverage.num})}">
+                    <img th:src="@{${beverage.filepath}}"
+                         style="width:100%; height:600px">
+                </a>
+                <img th:unless="${beverage != null}"
                      th:src="@{/files/준비중.jpg}"
-                     style="width:100%; height:600px">
-                <img th:unless="${beverage == null}"
-                     th:src="@{${beverage.filepath}}"
                      style="width:100%; height:600px">
             </div>
 
             <div class="item">
-                <img th:if="${food} != null"
-                     th:src="@{${food.filepath}}"
-                     style="width:100%; height:600px">
-                <img th:unless="${food} != null"
-                     th:src="@{${food.filepath}}"
+                <a th:if="${food != null}"
+                   th:href="@{/menu/detail(num=${food.num})}">
+                    <img th:src="@{${food.filepath}}"
+                         style="width:100%; height:600px">
+                </a>
+                <img th:unless="${food != null}"
+                     th:src="@{/files/준비중.jpg}"
                      style="width:100%; height:600px">
             </div>
-
         </div>
 
         <!-- Left and right controls -->
