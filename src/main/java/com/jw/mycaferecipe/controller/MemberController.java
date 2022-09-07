@@ -24,7 +24,7 @@ public class MemberController {
     //회원등록 폼으로 이동
     @GetMapping("/join/new")
     public String joinFrom() {
-        return "members/joinForm";
+        return "/members/joinForm";
     }
 
     //DB에 회원정보 저장
@@ -35,19 +35,16 @@ public class MemberController {
         return "redirect:/";
     }
 
-    /*회원목록
-    @GetMapping("/members")
-    public String allMember(Model model) {
-        List<MemberDTO> members = memberService.findMembers();
-        model.addAttribute("members", members);
-        return "members/memberList";
+    //로그인화면
+    @GetMapping("/login")
+    public String loginForm() {
+        return "/members/login";
     }
-     */
 
     //로그인
     @PostMapping("/login")
-    public String login(@RequestParam(value = "id", required = false, defaultValue = "") String id,
-                        @RequestParam(value = "pw", required = false, defaultValue = "") String pw) {
+    public String login(@RequestParam("id") String id
+                       ,@RequestParam("pw") String pw) {
         return "/";
     }
 }

@@ -28,11 +28,14 @@
       <li><a th:href="@{/map}">주변 카페찾기</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/join/new"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>
       <li>
-        <a href="#" onclick="document.getElementById('id01').style.display='block'">
+        <a th:href="@{/join/new}">
+          <span class="glyphicon glyphicon-user"></span> 회원가입
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/login}">
           <span class="glyphicon glyphicon-log-in"></span> 로그인
-          <div th:replace="/members/login :: loginForm"></div>
         </a>
       </li>
     </ul>
