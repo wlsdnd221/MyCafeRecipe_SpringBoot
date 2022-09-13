@@ -41,10 +41,4 @@ public class MemberController {
         return "/members/login";
     }
 
-    //로그인
-    @PostMapping("/login")
-    public String login(@RequestParam("id") String id
-                       ,@RequestParam("pw") String pw) {
-        return "/";
-    }
 }

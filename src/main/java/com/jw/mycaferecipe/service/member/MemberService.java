@@ -1,7 +1,10 @@
 package com.jw.mycaferecipe.service.member;
 
 import com.jw.mycaferecipe.entity.MemberDTO;
+import com.jw.mycaferecipe.entity.Role;
 import com.jw.mycaferecipe.repository.member.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -12,6 +15,7 @@ public class MemberService {
 
     private MemberRepository memberRepository;
 
+    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -23,6 +27,11 @@ public class MemberService {
         // 같은 아이디 중복x
         duplicateId(memberDTO);
 
+        memberDTO.setEnabled(true);
+
+        Role role = new Role();
+        role.setNum(1l); // 하드코딩(원래는 db에서 받아와야 됨)
+        memberDTO.getRoleList().add(role);
         memberRepository.save(memberDTO);
         return memberDTO.getNum();
     }
