@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="common :: cdn">
     <meta charset="UTF-8">
     <title>Title</title>
@@ -16,7 +16,8 @@
         <input type="hidden">
         <p>
             <label class="w3-text-brown"><b>작성자</b></label>
-            <input th:field="*{writer}" class="w3-input w3-border w3-sand" name="writer" type="text">
+            <input th:value="${#authentication.name}"
+                   class="w3-input w3-border w3-sand" name="writer" readonly>
         </p>
         <p>
             <label class="w3-text-brown"><b>레시피명(개성있는 이름을 지어주세요!)</b></label>

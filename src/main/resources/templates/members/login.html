@@ -15,6 +15,12 @@
         <br>
         <div class="w3-container">
             <div style="width: 80%; margin-left: auto; margin-right: auto">
+                <div th:if="${param.error}">
+                    아이디와 비밀번호를 확인하세요
+                </div>
+                <div th:if="${param.logout}">
+                    로그아웃되었습니다
+                </div>
                 <form id="form" class="form-horizontal" th:action="@{/login}" method="post">
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="id">아이디:</label>
@@ -25,7 +31,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="pw">비밀번호:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="pw" placeholder="비밀번호를 입력하세요" name="pw">
+                            <input type="password" class="form-control" id="pw" placeholder="비밀번호를 입력하세요" name="pw">
                         </div>
                         <br>
                     <div class="form-group">

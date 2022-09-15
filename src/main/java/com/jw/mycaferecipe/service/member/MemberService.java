@@ -14,10 +14,12 @@ import java.util.Optional;
 public class MemberService {
 
     private MemberRepository memberRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -27,6 +29,11 @@ public class MemberService {
         // 같은 아이디 중복x
         duplicateId(memberDTO);
 
+        // 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(memberDTO.getPw());
+        memberDTO.setPw(encodedPassword);
+
+        // 권한설정
         memberDTO.setEnabled(true);
 
         Role role = new Role();
@@ -46,12 +53,12 @@ public class MemberService {
     /**
      * 전체 회원 조회
      */
-    public List<MemberDTO> findMembers() {
-        return memberRepository.findAll();
-    }
-
-    public Optional<MemberDTO> findOne(Long memberNum) {
-        return memberRepository.findByNum(memberNum);
-    }
+//    public List<MemberDTO> findMembers() {
+//        return memberRepository.findAll();
+//    }
+//
+//    public Optional<MemberDTO> findOne(Long memberNum) {
+//        return memberRepository.findByNum(memberNum);
+//    }
 
 }

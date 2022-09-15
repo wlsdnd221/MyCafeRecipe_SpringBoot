@@ -6,6 +6,7 @@ import com.jw.mycaferecipe.service.member.MemberService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,11 +15,11 @@ class MemberServiceTest {
 
     MemberService memberService;
     MemoryMemberRepository memoryMemberRepository;
-
+    PasswordEncoder passwordEncoder;
     @BeforeEach
     public void beforeEach() {
         memoryMemberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memoryMemberRepository);
+        memberService = new MemberService(memoryMemberRepository, passwordEncoder);
 
     }
 

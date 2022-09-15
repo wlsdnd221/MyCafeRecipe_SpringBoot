@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <div th:fragment="cdn">
@@ -27,7 +27,7 @@
       <li><a th:href="@{/board/list}">레시피 게시판</a></li>
       <li><a th:href="@{/map}">주변 카페찾기</a></li>
     </ul>
-    <ul class="nav navbar-nav navbar-right">
+    <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
       <li>
         <a th:href="@{/join/new}">
           <span class="glyphicon glyphicon-user"></span> 회원가입
@@ -38,6 +38,13 @@
           <span class="glyphicon glyphicon-log-in"></span> 로그인
         </a>
       </li>
+    </ul>
+    <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
+      <span sec:authentication="name" style="color: white">사용자 아이디</span>
+      <span sec:authentication="principal.authorities" style="color: white">사용자 권한</span>
+      <form th:action="@{/logout}" method="post">
+        <button class="glyphicon glyphicon-log-in">로그아웃</button>
+      </form>
     </ul>
   </div>
 </nav>

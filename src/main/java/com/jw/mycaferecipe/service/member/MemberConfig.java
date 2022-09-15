@@ -34,7 +34,7 @@ public class MemberConfig {
 
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository);
+        return new MemberService(memberRepository, passwordEncoder());
     }
 
     //Spring Security 로그인처리
@@ -42,11 +42,15 @@ public class MemberConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .antMatchers("/", "/members/joinForm", "/menu/list", "/join/new", "/board/list", "/map").permitAll()
+                        .antMatchers("/", "/members/joinForm", "/menu/list", "/join/new", "/board/list", "/map", "/files/*").permitAll() // 로그인없이도 사용가능한 페이지목록 설정
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/login")
+                        .loginPage("/login") // 사용자 정의 로그인 페이지
+                        .usernameParameter("id") // 아이디 변수명 설정
+                        .passwordParameter("pw") // 비밀번호 변수명 설정
+                        .loginProcessingUrl("/login") // 로그인 Form action url
+                        .defaultSuccessUrl("/", true) // 로그인 성공 후 이동페이지(successHandler()를 사용한 로직구현이 더 좋은방식임)
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll());
@@ -54,16 +58,17 @@ public class MemberConfig {
         return http.build();
     }
 
+    // 로그인 시도 아이디, 비밀번호, 권한을 DB에서 조회
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery("select id, pw, enabled "
-                        + "from member "
-                        + "where id = ?")
-                .authoritiesByUsernameQuery("select m.id, r.name " //ManyToMany 맵핑
+                .usersByUsernameQuery("select m.id, m.pw, m.enabled "
+                        + "from member m "
+                        + "where m.id = ?")
+                .authoritiesByUsernameQuery("select m.id, r.name "
                         + "from member_role mr inner join member m on mr.member_num = m.num "
                         + "inner join role r on mr.role_num = r.num "
                         + "where m.id = ?");
