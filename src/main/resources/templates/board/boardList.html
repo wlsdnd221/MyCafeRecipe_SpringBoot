@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="common :: cdn">
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,7 +11,8 @@
     <h2><b>Recipe 게시판</b></h2>
     <br>
     <p style="text-align: right">
-        <a th:href="@{/board/enroll}">
+        <a sec:authorize="isAuthenticated()"
+           th:href="@{/board/enroll}">
             <button class="w3-button w3-brown">글 쓰기</button>
         </a>
     </p>

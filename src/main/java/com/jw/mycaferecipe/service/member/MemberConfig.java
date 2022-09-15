@@ -44,7 +44,7 @@ public class MemberConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .antMatchers("/", "/members/joinForm", "/menu/list", "/join/new", "/board/list", "/map", "/files/*").permitAll() // 로그인없이도 사용가능한 페이지목록 설정
+                        .antMatchers("/", "/members/joinForm", "/menu/list", "/join/new", "/board/list", "/map", "/files/*", "/menu/detail", "/board/detail").permitAll() // 로그인없이도 사용가능한 페이지목록 설정
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

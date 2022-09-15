@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="common :: cdn">
     <meta charset="UTF-8">
     <title>Title</title>
@@ -53,17 +53,19 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a th:href="@{/menu/enroll(num=${mdto.num})}">
+                                    <a sec:authorize="isAuthenticated()"
+                                       th:href="@{/menu/enroll(num=${mdto.num})}">
                                         <input type="button" class="w3-btn  w3-red" value="수정">
                                     </a>
-                                    <button type="button"
+                                    <button sec:authorize="isAuthenticated()"
+                                            type="button"
                                             class="w3-btn w3-red"
                                             th:num="${mdto.num}"
                                             th:onclick="del(this.getAttribute('num'))">삭제</button>
                                 </td>
                                 <td>
                                     <p align="right">
-                                        <a href="cafe_menu_list?cafename=${cafename}&pagenum=1">
+                                        <a th:href="@{/menu/list}">
                                             <input type="button" class="w3-btn w3-brown" value="목록으로">
                                         </a>
                                     </p>

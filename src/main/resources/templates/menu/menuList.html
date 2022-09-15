@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="common :: cdn">
     <meta charset="UTF-8">
     <title>Title</title>
@@ -19,7 +19,7 @@
 
         <div id="London" class="w3-container city" style="display:none">
             <h2>음료
-                <a href="/menu/enroll">
+                <a sec:authorize="isAuthenticated()" href="/menu/enroll">
                     <button type="button">등록하기</button>
                 </a>
             </h2>
@@ -41,7 +41,7 @@
 
         <div id="Paris" class="w3-container city" style="display:none">
             <h2>푸드
-                <a href="/menu/enroll">
+                <a sec:authorize="isAuthenticated()" href="/menu/enroll">
                     <button type="button">등록하기</button>
                 </a>
             </h2>
@@ -63,7 +63,7 @@
 
         <div id="Tokyo" class="w3-container city" style="display:none">
             <h2>토핑
-                <a href="/menu/enroll">
+                <a sec:authorize="isAuthenticated()" href="/menu/enroll">
                     <button type="button">등록하기</button>
                 </a>
             </h2>
