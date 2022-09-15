@@ -76,6 +76,7 @@ public class BoardController {
         List<MenuDTO> menuList = menuService.menuList();
         model.addAttribute("menuList", menuList);
 
+        // num값이 없으면 신규등록, 있으면 수정
         if(num == null) {
             model.addAttribute("bdto", new BoardDTO());
         }
@@ -97,8 +98,8 @@ public class BoardController {
     //레시피상세
     @GetMapping("/board/detail")
     public String boardDetail(@RequestParam("num") Long num, Model model) {
-        //조회수증가
-        boardService.readCount(num);
+
+        boardService.readCount(num); //조회수증가
 
         BoardDTO boardDTO = boardService.boardDetail(num).orElse(null);
         model.addAttribute("bdto", boardDTO);
@@ -106,6 +107,7 @@ public class BoardController {
         return "/board/boardDetail";
     }
 
+    //레시피삭제
     @GetMapping("/board/delete")
     public String boardDelete(@RequestParam("num") Long num) {
         boardService.boardDelete(num);

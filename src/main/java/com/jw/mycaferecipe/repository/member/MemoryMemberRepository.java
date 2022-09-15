@@ -4,6 +4,10 @@ import com.jw.mycaferecipe.entity.MemberDTO;
 
 import java.util.*;
 
+/**
+ * DB를 설정하기 전 임시로 사용하는 저장소
+ */
+
 public class MemoryMemberRepository implements MemberRepository {
 
     private static Map<Long, MemberDTO> store= new HashMap<>();

@@ -21,41 +21,53 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
-    //게시판목록 로직
+    /**
+     * 게시판목록 로직
+     */
     public Page<BoardDTO> boardList(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
 
-    //게시판검색목록
+    /**
+     * 게시판검색목록
+    */
     public Page<BoardDTO> boardSearchList(String category, String search, Pageable pageable) {
         Page<BoardDTO> pageList = null;
 
         if(category.equals("title")) {
-            pageList = boardRepository.findByTitleContaining(search, pageable);
+            pageList = boardRepository.findByTitleContaining(search, pageable); // 제목으로 검색
         }
         else {
-            pageList = boardRepository.findByWriterContaining(search, pageable);
+            pageList = boardRepository.findByWriterContaining(search, pageable); // 작성자로 검색
         }
         return pageList;
     }
 
-    //게시판등록 로직
+    /**
+     * 게시판등록 로직
+     */
     public void boardEnroll(BoardDTO boardDTO) {
         boardRepository.save(boardDTO);
     }
 
-    //게시판상세 로직
+    /**
+     * 게시판상세 로직
+     */
     public Optional<BoardDTO> boardDetail(Long num) {
         return boardRepository.findById(num);
     }
 
     @Transactional
-    //조회수증가 로직
+    /**
+     * 조회수증가 로직
+     */
     public void readCount(Long num) {
         boardRepository.updateReadcnt(num);
     }
 
-    //게시판삭제 로직
+    /**
+     * 게시판삭제 로직
+     */
     public void boardDelete(Long num) {
         boardRepository.deleteById(num);
     }

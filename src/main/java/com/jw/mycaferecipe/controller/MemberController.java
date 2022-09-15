@@ -41,11 +41,4 @@ public class MemberController {
         return "/members/login";
     }
 
-
-//    @GetMapping("/login/fail")
-//    public String loginFail() {
-//        return "";
-//    }
-
-
 }

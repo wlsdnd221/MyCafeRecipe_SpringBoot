@@ -26,6 +26,7 @@ public class MenuController {
     //메뉴 폼으로 이동(등록, 수정)
     @GetMapping("/menu/enroll")
     public String menuEnrollForm(@RequestParam(required = false, name = "num") Long num, Model model) {
+        // num값이 없으면 신규등록, 있으면 수정
         if(num == null) {
             model.addAttribute("mdto", new MenuDTO());
         }

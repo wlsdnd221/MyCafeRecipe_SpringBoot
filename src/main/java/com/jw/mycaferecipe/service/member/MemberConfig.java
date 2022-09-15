@@ -37,7 +37,9 @@ public class MemberConfig {
         return new MemberService(memberRepository, passwordEncoder());
     }
 
-    //Spring Security 로그인처리
+    /**
+     * Spring Security 로그인처리
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -58,17 +60,17 @@ public class MemberConfig {
         return http.build();
     }
 
-    // 로그인 시도 아이디, 비밀번호, 권한을 DB에서 조회
+    // 로그인 아이디, 비밀번호, 권한을 DB에서 조회
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery("select m.id, m.pw, m.enabled "
+                .usersByUsernameQuery("select m.id, m.pw, m.enabled " //등록된 회원인지 확인
                         + "from member m "
                         + "where m.id = ?")
-                .authoritiesByUsernameQuery("select m.id, r.name "
+                .authoritiesByUsernameQuery("select m.id, r.name " //등록된 회원이면 권한을 확인
                         + "from member_role mr inner join member m on mr.member_num = m.num "
                         + "inner join role r on mr.role_num = r.num "
                         + "where m.id = ?");

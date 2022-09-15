@@ -19,6 +19,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
+        // 신 메뉴(음료, 푸드)
         MenuDTO beverage = menuService.menuList().stream()
                 .filter(s -> s.getSort().equals("beverage"))
                 .sorted(Comparator.comparing(MenuDTO::getNum).reversed())
@@ -36,6 +37,7 @@ public class HomeController {
         return "home";
     }
 
+    // 내 주변 카페찾기 (카카오 OPEN API)
     @GetMapping("/map")
     public String map() {
         return "map";

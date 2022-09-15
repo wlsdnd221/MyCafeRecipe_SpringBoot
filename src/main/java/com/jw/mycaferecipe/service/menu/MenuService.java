@@ -22,7 +22,9 @@ public class MenuService {
         this.menuRepository = menuRepository;
     }
 
-    //메뉴등록 비즈니스로직
+    /**
+     * 메뉴등록 비즈니스로직
+     */
     public void enroll(MenuDTO menuDTO, MultipartFile file) throws Exception{
 
         if(file.isEmpty()) {}
@@ -45,19 +47,25 @@ public class MenuService {
         menuRepository.save(menuDTO);
     }
 
-    //메뉴리스트 로직
+    /**
+     * 메뉴리스트 로직
+     */
     public List<MenuDTO> menuList() {
         List<MenuDTO> menuList = menuRepository.findAll();
         return menuList;
     }
 
-    //메뉴상세 로직
+    /**
+     * 메뉴상세 로직
+     */
     public Optional<MenuDTO> menuDetail(@RequestParam("num") Long num) {
         Optional<MenuDTO> menuDetail = menuRepository.findById(num);
         return menuDetail;
     }
 
-    //메뉴삭제 로직
+    /**
+     * 메뉴상세 로직
+     */
     public void menuDelete(@RequestParam("num") Long num) {
         menuRepository.deleteById(num);
     }
